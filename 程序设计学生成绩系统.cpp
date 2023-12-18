@@ -4,9 +4,9 @@
 
 #define stu_max 30
  
-int stu_num();//统计学生人数函数 
+int stu_num();//缁熻瀛︾敓浜烘暟鍑芥暟 
 
-char menu_tips();//操作函数 
+char menu_tips();//鎿嶄綔鍑芥暟 
 
 void stu_information(long num[],float score[],int n);
 
@@ -194,7 +194,7 @@ void score_pro(float score[],int n)
     for(i=0,m=9;i<6;i++)
     {
         if(i==4)
-            printf("<60\t%d\t%.2f%%\n",t[4],(float)t[4]/n*100);//%%指的是输出的值是一个百分数 
+            printf("<60\t%d\t%.2f%%\n",t[4],(float)t[4]/n*100);//%%鎸囩殑鏄緭鍑虹殑鍊兼槸涓�涓櫨鍒嗘暟 
         if(i==5)
             printf("%d\t%d\t%.2f%%\n",100,t[5],(float)t[5]/n*100);
         if(i!=4&&i!=5)
