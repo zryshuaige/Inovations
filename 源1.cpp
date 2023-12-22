@@ -37,7 +37,7 @@ void ReadGrade(int max)
 	fseek(pf, 0, SEEK_SET); //使文件指针pf指向文件开头
 	fread(&max, sizeof(int), 1, pf); //读取文件当中的最高得分到max当中
 	fclose(pf); //关闭文件
-	pf = NULL; //文件指针及时置空
+	pf =0; //文件指针及时置空
 }
 
 void WriteGrade(int grade)
@@ -82,14 +82,16 @@ void InitInterface(int face[][COL])
 			if (j == 0 || j == COL - 1)
 			{
 				face[i][j] = WALL; //标记该位置为墙
-				CursorJump(2 * j, i);
+				//CursorJump(2 * j, i);
 				printf("■");
 			}
 			else 
 			{
 				face[i][j] = KONG; //标记该位置为空
+				printf(" ");
 			}
 		}
+		printf("\n");
 	}
 }
 
@@ -104,19 +106,21 @@ void Draw_man(int flag,int x,int y)
 	{
 		//color(10);
 		CursorJump(x, y);printf("■");
-		CursorJump(x, y-1);
+		CursorJump(x-2, y+1);
 		for(int i=1;i<=5;i++)
 			printf("■");
-		CursorJump(x, y - 2);
+		CursorJump(x-1, y +2);
 		for (int i = 1; i <= 3; i++)
 			printf("■");
 	}
-	else//
+	else
 	{
-
+		CursorJump(x, y); printf(" ");
+		CursorJump(x - 2, y + 1);
+		for (int i = 1; i <= 5; i++)
+			printf(" ");
+		CursorJump(x - 1, y + 2);
+		for (int i = 1; i <= 3; i++)
+			printf(" ");
 	}
-}
-void Move_man(int x)//标记左为-1，右为1；
-{
-	
 }

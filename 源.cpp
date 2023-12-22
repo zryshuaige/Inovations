@@ -1,7 +1,8 @@
 #include<iostream>
 #include<windows.h>
+#include<time.h>
+#include<conio.h>
 #include"标头1.h"
-
 using namespace std;
 
 #define ROW 25 //游戏区行数
@@ -34,18 +35,21 @@ struct row
 int maxn,grade;
 int face[ROW][COL];
 
-void Game();
+void Game(); void Move_man(int move);
 
-int main(void)
+int main()
 {
-	maxn = 0; man1.x = ROW / 2, man1.y = COL - 3;
+	maxn = 0; man1.x = ROW , man1.y = COL/2 - 3;
 	system("title zry箭箭剑"); //设置cmd窗口的名字
-	system("mode con cols=200 lines=800"); //设置cmd窗口的大小
-	HideCursor(); //隐藏光标
+	system("mode con cols=250 lines=250"); //设置cmd窗口的大小
+	CursorJump(ROW / 2, COL/5);
+	printf("Welcome to Genshin Impact");
+	Sleep(2000);
+	system("cls");
 	ReadGrade(maxn); //从文件读取最高分到max变量
 	InitInterface(face); //初始化界面
+	HideCursor(); //隐藏光标
 	Draw_man(1, man1.x, man1.y);
-
 	Game();
 	return 0;
 }
@@ -53,27 +57,38 @@ int main(void)
 
 void Game()
 {
-	int n;
+	int  n;
 	int tmp = 0;
 	//goto first;
-	while (1);
+	while (1)
 	{
-		n = getchar();
-		int tmp = 0;
+		n=_getch();
+		//int tmp = 0;
 		switch (n)
 		{
-		case RIGHT:Move_man(-1);
-		case LEFT:Move_man(1);
-		case 'r':
-		case 'R':system("cls"); main();
+		case RIGHT:Move_man(1); break;
+		case LEFT:Move_man(-1); break;
+		case 'r':system("cls"); main(); break;
+		case 'R':system("cls"); main(); break;
 		case ESC: //退出
 			system("cls"); //清空屏幕
 			//color(7); //颜色设置为白色
-			//CursorJump(COL - 8, ROW / 2);
+			CursorJump( ROW / 2,COL/2);
 			printf("  游戏结束  ");
 			//CursorJump(COL - 8, ROW / 2 + 2);
 			exit(0);
 		default:break;
 		}
 	}
+}
+
+void Move_man(int move)//标记左为-1，右为1；
+{
+	if (man1.y + 2 <= ROW || man1.y - 2 >= 0)
+	{
+		Draw_man(0, man1.x, man1.y);
+		man1.y+=move;
+		Draw_man(1, man1.x, man1.y);
+	}
+
 }

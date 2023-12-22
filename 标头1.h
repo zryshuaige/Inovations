@@ -17,7 +17,7 @@ void color(int c);
 void run(int x, int y);
 
 void Draw_man(int flag,int x,int y);
-void Move_man(int x);
+
 
 
 //后期增加项目
