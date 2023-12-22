@@ -1,8 +1,7 @@
 #include<iostream>
 #include<windows.h>
 #include"标头1.h"
-#include <Color.Dlg>
-#include <Color.Dlg>
+
 using namespace std;
 
 #define ROW 25 //游戏区行数
@@ -25,10 +24,11 @@ using namespace std;
 struct man
 {
 	int move_speed, blood;
+	int x, y;//x,y表示英雄的头部的位置；
 }man1;
 struct row
 {
-	int num, frequency;
+	int num, frequency,speed;
 }rows;
 
 int maxn,grade;
@@ -38,13 +38,13 @@ void Game();
 
 int main(void)
 {
-    maxn = 0;
+	maxn = 0; man1.x = ROW / 2, man1.y = COL - 3;
 	system("title zry箭箭剑"); //设置cmd窗口的名字
-	system("mode con cols=200 lines=100"); //设置cmd窗口的大小
+	system("mode con cols=200 lines=800"); //设置cmd窗口的大小
 	HideCursor(); //隐藏光标
 	ReadGrade(maxn); //从文件读取最高分到max变量
 	InitInterface(face); //初始化界面
-
+	Draw_man(1, man1.x, man1.y);
 
 	Game();
 	return 0;
@@ -64,13 +64,14 @@ void Game()
 		{
 		case RIGHT:Move_man(-1);
 		case LEFT:Move_man(1);
+		case 'r':
 		case 'R':system("cls"); main();
 		case ESC: //退出
 			system("cls"); //清空屏幕
-			color(7); //颜色设置为白色
-			CursorJump(COL - 8, ROW / 2);
+			//color(7); //颜色设置为白色
+			//CursorJump(COL - 8, ROW / 2);
 			printf("  游戏结束  ");
-			CursorJump(COL - 8, ROW / 2 + 2);
+			//CursorJump(COL - 8, ROW / 2 + 2);
 			exit(0);
 		default:break;
 		}

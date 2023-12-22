@@ -20,17 +20,18 @@
 #define SPACE 32 //暂停
 #define ESC 27 //退出
 
-void color(int c)
-{
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c); //颜色设置
-}
+//void color(int c)
+//{
+	//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c); //颜色设置
+//}
 
 void ReadGrade(int max)
 {
-	FILE* pf = fopen("max_grades.txt", "r"); //以只读的方式打开文件
-	if (pf == NULL) //打开文件失败
+	FILE* pf;
+	fopen_s(&pf,"max_grades.txt", "r"); //以只读的方式打开文件
+	if (pf == 0) //打开文件失败
 	{
-		pf = fopen("max_grades.txt", "w"); //以只写的方式打开文件
+		fopen_s(&pf,"max_grades.txt", "w"); //以只写的方式打开文件
 		fwrite(&max, sizeof(int), 1, pf); //将max写入文件（此时max为0），即将最高得分初始化为0
 	}
 	fseek(pf, 0, SEEK_SET); //使文件指针pf指向文件开头
@@ -41,7 +42,8 @@ void ReadGrade(int max)
 
 void WriteGrade(int grade)
 {
-	FILE* pf = fopen("max_grades.txt", "w"); //以只写的方式打开文件
+	FILE* pf  ;
+	fopen_s(&pf,"max_grades.txt", "w"); //以只写的方式打开文件
 	if (pf == NULL) //打开文件失败
 	{
 		printf("保存最高得分记录失败(玩原神玩的)\n");
@@ -61,7 +63,7 @@ void HideCursor()
 	SetConsoleCursorInfo(handle, &curInfo); //设置光标信息
 }
 
-void CursorJump(int x, int y)
+void CursorJump(int x,int y)
 {
 	COORD pos; //定义光标位置的结构体变量
 	pos.X = x; //横坐标
@@ -72,7 +74,7 @@ void CursorJump(int x, int y)
 
 void InitInterface(int face[][COL])
 {
-	color(6); //颜色设置
+	//color(6); //颜色设置
 	for (int i = 0; i < ROW;i++)
 	{
 		for (int j = 0; j < COL; j++)
@@ -96,4 +98,25 @@ void run(int x, int y)
 
 }
 
+void Draw_man(int flag,int x,int y)
+{
+	if (flag == 1)
+	{
+		//color(10);
+		CursorJump(x, y);printf("■");
+		CursorJump(x, y-1);
+		for(int i=1;i<=5;i++)
+			printf("■");
+		CursorJump(x, y - 2);
+		for (int i = 1; i <= 3; i++)
+			printf("■");
+	}
+	else//
+	{
+
+	}
+}
 void Move_man(int x)//标记左为-1，右为1；
+{
+	
+}
