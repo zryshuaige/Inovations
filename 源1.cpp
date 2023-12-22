@@ -10,7 +10,7 @@
 #define KONG 0 //标记空（什么也没有）
 #define WALL 1 //标记墙
 #define ENEMY 2 //标记敌人
-#define ROW //标记剑
+#define RAW //标记剑
 #define ARROW//标记御剑#后期加入
 
 #define UP 72 //方向键：上
@@ -19,6 +19,11 @@
 #define RIGHT 77 //方向键：右
 #define SPACE 32 //暂停
 #define ESC 27 //退出
+
+void color(int c)
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c); //颜色设置
+}
 
 void ReadGrade(int max)
 {
@@ -36,10 +41,10 @@ void ReadGrade(int max)
 
 void WriteGrade(int grade)
 {
-	FILE* pf = fopen("贪吃蛇最高得分记录.txt", "w"); //以只写的方式打开文件
+	FILE* pf = fopen("max_grades.txt", "w"); //以只写的方式打开文件
 	if (pf == NULL) //打开文件失败
 	{
-		printf("保存最高得分记录失败\n");
+		printf("保存最高得分记录失败(玩原神玩的)\n");
 		exit(0);
 	}
 	fwrite(&grade, sizeof(int), 1, pf); //将本局游戏得分写入文件当中
@@ -49,14 +54,26 @@ void WriteGrade(int grade)
 
 void HideCursor()
 {
-
+	CONSOLE_CURSOR_INFO curInfo; //定义光标信息的结构体变量
+	curInfo.dwSize = 1; //如果没赋值的话，光标隐藏无效
+	curInfo.bVisible = FALSE; //将光标设置为不可见
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE); //获取控制台句柄
+	SetConsoleCursorInfo(handle, &curInfo); //设置光标信息
 }
 
-
-	void InitInterface()
+void CursorJump(int x, int y)
 {
-	//color(6); //颜色设置为土黄色
-	for (int i = 0; i < ROW; i++)
+	COORD pos; //定义光标位置的结构体变量
+	pos.X = x; //横坐标
+	pos.Y = y; //纵坐标
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE); //获取控制台句柄
+	SetConsoleCursorPosition(handle, pos); //设置光标位置
+}
+
+void InitInterface(int face[][COL])
+{
+	color(6); //颜色设置
+	for (int i = 0; i < ROW;i++)
 	{
 		for (int j = 0; j < COL; j++)
 		{
@@ -66,12 +83,7 @@ void HideCursor()
 				CursorJump(2 * j, i);
 				printf("■");
 			}
-			else if (i == 0 || i == ROW - 1)
-			{
-				face[i][j] = WALL; //标记该位置为墙
-				printf("■");
-			}
-			else
+			else 
 			{
 				face[i][j] = KONG; //标记该位置为空
 			}
@@ -79,4 +91,9 @@ void HideCursor()
 	}
 }
 
+void run(int x, int y)
+{
 
+}
+
+void Move_man(int x)//标记左为-1，右为1；
