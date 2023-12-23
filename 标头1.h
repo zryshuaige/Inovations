@@ -6,6 +6,7 @@
 #define COL 50
 
 void InitInterface(int face[][COL]);
+void Rollface(int face[][COL]);
 
 void HideCursor();
 void CursorJump(int x,int y);
@@ -25,4 +26,5 @@ void Draw_man(int flag,int x,int y);
 //void buff_arrow_normal();
 //void buff_arrow;
 //void choose_hero(int n);
+//void speed_up()// ±º‰Õ∆“∆
 #endif

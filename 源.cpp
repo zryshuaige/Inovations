@@ -32,7 +32,7 @@ struct row
 	int num, frequency,speed;
 }rows;
 
-int maxn,grade;
+int maxn,grade,cnt_x= COL / 2, cnt_y= ROW / 2;
 int face[ROW][COL];
 
 void Game(); void Move_man(int move);
@@ -42,14 +42,14 @@ int main()
 	maxn = 0; man1.x = ROW , man1.y = COL/2 - 3;
 	system("title zry箭箭剑"); //设置cmd窗口的名字
 	system("mode con cols=250 lines=250"); //设置cmd窗口的大小
-	CursorJump(ROW / 2, COL/5);
-	printf("Welcome to Genshin Impact");
+	CursorJump(cnt_x-5, cnt_y-5);
+	printf("Welcome to Genshin Impact,请在收到指令后操作");
 	Sleep(2000);
 	system("cls");
 	ReadGrade(maxn); //从文件读取最高分到max变量
 	InitInterface(face); //初始化界面
 	HideCursor(); //隐藏光标
-	Draw_man(1, man1.x, man1.y);
+	Draw_man(1, man1.y, man1.x);
 	Game();
 	return 0;
 }
@@ -57,6 +57,12 @@ int main()
 
 void Game()
 {
+	CursorJump(cnt_x-5, cnt_y);
+	printf("您可以开始操作了");
+	Sleep(2000);
+	CursorJump(cnt_x-5, cnt_y);
+	printf("                ");
+	Rollface(face);
 	int  n;
 	int tmp = 0;
 	//goto first;
@@ -84,11 +90,10 @@ void Game()
 
 void Move_man(int move)//标记左为-1，右为1；
 {
-	if (man1.y + 2 <= ROW || man1.y - 2 >= 0)
+	if (move == -1 && man1.y - 2 >0 || move == 1 && man1.y + 2 < COL)
 	{
-		Draw_man(0, man1.x, man1.y);
-		man1.y+=move;
-		Draw_man(1, man1.x, man1.y);
+		Draw_man(0, man1.y, man1.x);
+		man1.y += move;
+		Draw_man(1, man1.y, man1.x);
 	}
-
 }

@@ -63,7 +63,7 @@ void HideCursor()
 	SetConsoleCursorInfo(handle, &curInfo); //设置光标信息
 }
 
-void CursorJump(int x,int y)
+void CursorJump(int x,int y)//与数组x,y定义相反
 {
 	COORD pos; //定义光标位置的结构体变量
 	pos.X = x; //横坐标
@@ -75,7 +75,7 @@ void CursorJump(int x,int y)
 void InitInterface(int face[][COL])
 {
 	//color(6); //颜色设置
-	for (int i = 0; i < ROW;i++)
+	for (int i = 0; i < ROW;i+=2)
 	{
 		for (int j = 0; j < COL; j++)
 		{
@@ -92,6 +92,40 @@ void InitInterface(int face[][COL])
 			}
 		}
 		printf("\n");
+	}
+}
+
+void Rollface(int face[][COL])
+{
+	while (1)
+	{
+		int i = 0,j=0;
+		while (i <= ROW)
+		{
+			CursorJump(0, i);
+			for ( j = 0; j < COL; j++)
+			{
+				if (j == 0 || j == COL - 1)
+					printf("■");
+				else
+					printf(" ");
+			}
+			printf("\n");
+			i++;
+		}
+		while (i)
+		{
+			CursorJump(0, i);
+			for (j = 0; j < COL; j++)
+			{
+				if (j == 0 || j == COL - 1)
+					printf(" ");
+				else
+					printf("■");
+			}
+			printf("\n");
+			i--;
+		}
 	}
 }
 
