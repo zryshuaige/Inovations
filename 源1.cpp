@@ -3,6 +3,7 @@
 #include<windows.h>
 #include<stdlib.h>
 #include<conio.h>
+#include<time.h>
 
 #define ROW 25 //游戏区行数
 #define COL 50 //游戏区列数
@@ -75,7 +76,7 @@ void CursorJump(int x,int y)//与数组x,y定义相反
 void InitInterface(int face[][COL])
 {
 	//color(6); //颜色设置
-	for (int i = 0; i < ROW;i+=2)
+	for (int i = 0; i < ROW;i++)
 	{
 		for (int j = 0; j < COL; j++)
 		{
@@ -97,37 +98,26 @@ void InitInterface(int face[][COL])
 
 void Rollface(int face[][COL])
 {
-	while (1)
+	int i = 0,j=0;
+	while (i <= ROW)
 	{
-		int i = 0,j=0;
-		while (i <= ROW)
-		{
-			CursorJump(0, i);
-			for ( j = 0; j < COL; j++)
-			{
-				if (j == 0 || j == COL - 1)
-					printf("■");
-				else
-					printf(" ");
-			}
-			printf("\n");
-			i++;
-		}
-		while (i)
-		{
-			CursorJump(0, i);
-			for (j = 0; j < COL; j++)
-			{
-				if (j == 0 || j == COL - 1)
-					printf(" ");
-				else
-					printf("■");
-			}
-			printf("\n");
-			i--;
-		}
+		CursorJump(0, i); printf("■");
+		CursorJump(COL, i); printf("■");
+		printf("\n");
+		i++;
+	}
+	Sleep(500);
+	while (i)
+	{
+		CursorJump(0, i);printf(" ");
+		CursorJump(COL, i); printf(" ");
+		i--;
+		CursorJump(0, i); printf("■");
+		CursorJump(COL, i); printf("■");
+		i--;
 	}
 }
+
 
 void run(int x, int y)
 {
@@ -157,4 +147,22 @@ void Draw_man(int flag,int x,int y)
 		for (int i = 1; i <= 3; i++)
 			printf(" ");
 	}
+}
+
+
+void Draw_Monster(int flag, int x, int y)
+{
+	CursorJump(y,x);
+	if (flag == 1)//1表示（基础怪物）
+	{
+		for (int i = 1; i <= 4; i++)	printf("■");
+		CursorJump(y, x+1);
+		for (int i = 1; i <= 4; i++)	printf("■");
+	}
+}
+
+
+void Clean_Monster(int flag, int x, int y)
+{
+	;
 }

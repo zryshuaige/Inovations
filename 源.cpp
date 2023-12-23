@@ -2,8 +2,13 @@
 #include<windows.h>
 #include<time.h>
 #include<conio.h>
+#include<time.h>
+#include<queue>
 #include"标头1.h"
+
 using namespace std;
+
+const int N = 5;//
 
 #define ROW 25 //游戏区行数
 #define COL 50 //游戏区列数
@@ -13,6 +18,7 @@ using namespace std;
 #define ENEMY 2 //标记敌人
 #define RAW //标记剑
 #define ARROW//标记御剑#后期加入
+#define Blood 20//怪物基础血量，后期用n*Blood表示
 
 #define UP 72 //方向键：上
 #define DOWN 80 //方向键：下
@@ -31,8 +37,15 @@ struct row
 {
 	int num, frequency,speed;
 }rows;
+struct Monsters
+{
+	int x, y, blood;
+}monster[N];
+deque<struct Monsters> que_monster;
+
 
 int maxn,grade,cnt_x= COL / 2, cnt_y= ROW / 2;
+time_t t1, t2;
 int face[ROW][COL];
 
 void Game(); void Move_man(int move);
@@ -40,6 +53,8 @@ void Game(); void Move_man(int move);
 int main()
 {
 	maxn = 0; man1.x = ROW , man1.y = COL/2 - 3;
+	monster[1].x = 0, monster[1].y = COL / 2, monster[1].blood = Blood;
+
 	system("title zry箭箭剑"); //设置cmd窗口的名字
 	system("mode con cols=250 lines=250"); //设置cmd窗口的大小
 	CursorJump(cnt_x-5, cnt_y-5);
@@ -48,8 +63,8 @@ int main()
 	system("cls");
 	ReadGrade(maxn); //从文件读取最高分到max变量
 	InitInterface(face); //初始化界面
-	HideCursor(); //隐藏光标
 	Draw_man(1, man1.y, man1.x);
+	HideCursor(); //隐藏光标
 	Game();
 	return 0;
 }
@@ -62,14 +77,13 @@ void Game()
 	Sleep(2000);
 	CursorJump(cnt_x-5, cnt_y);
 	printf("                ");
-	Rollface(face);
 	int  n;
-	int tmp = 0;
 	//goto first;
+
 	while (1)
 	{
-		n=_getch();
-		//int tmp = 0;
+		n=_getch();//_getch()是获取键值
+		//Rollface(face);
 		switch (n)
 		{
 		case RIGHT:Move_man(1); break;

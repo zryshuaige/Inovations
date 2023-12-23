@@ -18,6 +18,8 @@ void color(int c);
 void run(int x, int y);
 
 void Draw_man(int flag,int x,int y);
+void Draw_Monster(int flag, int x, int y);//flag表示类型
+void Clean_Monster(int flag, int x, int y);
 
 
 
