@@ -32,6 +32,9 @@ void clean();
 void min_score(float score[],int n);//搜索最小成绩 
 void max_score(float score[],int n);//搜索最大成绩 
 void cul_sd(float score[],int n);//计算标准差 
+void  Readtxt(void);//读取文件
+void  Writetxt();//写入文件 
+
 
 struct student {
 	long num[stu_max];
@@ -266,3 +269,22 @@ void cul_sd(float score[],int n)
 	else
 		printf("\n成绩的标准差是%.2f\n",cnt/(n-1));
 }
+
+void  Readtxt(void)
+{
+	FILE *fp;int num,grades;
+	if((fp=fopen("学生数据.txt","r"))==NULL)
+	{
+		printf("读取文件错误"); 
+		exit(0); 
+	}
+	while(!feof(fp))
+	{
+		fscanf(fp,"%d %d",&num,&grades);
+		printf("%d %d",num,grades);
+	}
+	fclose(fp);
+	fp=NULL;
+}
+
+void Writetxt(long num[],float score[],int n)
