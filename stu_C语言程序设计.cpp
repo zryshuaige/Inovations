@@ -33,7 +33,7 @@ void min_score(float score[],int n);//搜索最小成绩
 void max_score(float score[],int n);//搜索最大成绩 
 void cul_sd(float score[],int n);//计算标准差 
 void  Readtxt(void);//读取文件
-void  Writetxt();//写入文件 
+void Writetxt(int n);//写入文件 
 
 
 struct student {
@@ -52,7 +52,7 @@ int main()
         i=menu_tips();
         switch(i)
         {
-            case '1':printf("1"),stu_information(num,score,n),system("cls");break;
+            case '1':printf("1"),stu_information(num,score,n);break;//system("cls");break;
             case '2':printf("2"),sum_aver(score,n),clean();break;
             case '3':printf("3"),output_score(num,score,n),clean();break;
             case '4':printf("4"),output_num(num,score,n),clean();break;
@@ -110,6 +110,7 @@ void stu_information(long num[],float score[],int n)
     printf("\nInput student's ID and score:\n");
     for(i=0;i<n;i++)
         scanf("%ld%f",&student1.num[i],&student1.score[i]);
+    Writetxt(n);    
 }
 
 void sum_aver(float score[],int n)
@@ -272,7 +273,7 @@ void cul_sd(float score[],int n)
 
 void  Readtxt(void)
 {
-	FILE *fp;int num,grades;
+	FILE *fp;int num;float grades;
 	if((fp=fopen("学生数据.txt","r"))==NULL)
 	{
 		printf("读取文件错误"); 
@@ -280,11 +281,28 @@ void  Readtxt(void)
 	}
 	while(!feof(fp))
 	{
-		fscanf(fp,"%d %d",&num,&grades);
-		printf("%d %d",num,grades);
+		fscanf(fp,"%d %f",&num,&grades);
+		printf("%d %f",num,grades);
 	}
 	fclose(fp);
 	fp=NULL;
 }
 
-void Writetxt(long num[],float score[],int n)
+void Writetxt(int n)
+{
+	FILE *fp;
+	if((fp=fopen("学生数据.txt","w"))==NULL)
+	{
+		printf("读取文件错误"); 
+		exit(0); 
+	}
+	for(int i=0;i<n;i++)
+	{
+		fprintf(fp,"%d ",student1.num[i]);
+		fprintf(fp,"%f\n",student1.score[i]);
+	}
+	printf("\n写入文件成功\n"); 
+	fclose(fp);
+	fp=NULL;
+}
+
