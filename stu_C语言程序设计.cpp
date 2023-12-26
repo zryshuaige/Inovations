@@ -58,7 +58,8 @@ int main()
             case '4':printf("4"),output_num(num,score,n),clean();break;
             case '5':printf("5"),query(num,score,n),clean();break;
             case '6':printf("6"),score_pro(score,n),clean();break;
-            case '7':printf("7"),output(num,score,n),clean();break;
+            //case '7':printf("7"),output(num,score,n),clean();break;
+            case '7':printf("7"),Readtxt(),clean();break;
             case '8':printf("8"),max_score(score,n),min_score(score,n),clean();break;
             case '9':printf("9"),cul_sd(score,n),clean();break;
             case '0':printf("0"),exit(0);break;
@@ -281,8 +282,8 @@ void  Readtxt(void)
 	}
 	while(!feof(fp))
 	{
-		fscanf(fp,"%d %f",&num,&grades);
-		printf("%d %f",num,grades);
+		fscanf(fp,"%d %f\n",&num,&grades);
+		printf("\n%d %.2f\n",num,grades);
 	}
 	fclose(fp);
 	fp=NULL;
@@ -298,8 +299,8 @@ void Writetxt(int n)
 	}
 	for(int i=0;i<n;i++)
 	{
-		fprintf(fp,"%d ",student1.num[i]);
-		fprintf(fp,"%f\n",student1.score[i]);
+		fprintf(fp,"%d %f\n",student1.num[i],student1.score[i]);
+		//fprintf(fp,"%f\n",student1.score[i]);
 	}
 	printf("\n写入文件成功\n"); 
 	fclose(fp);
